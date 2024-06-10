@@ -1,6 +1,7 @@
 import { combineReducers } from '@reduxjs/toolkit';
-import CounterReducer from '../../pages/counter/redux/counter-reducer';
+import CounterReducer from '../../app/pages/counter/redux/counter-reducer';
 
-export const rootReducer = combineReducers({
+export default combineReducers({
   counter: CounterReducer,
+  // register reducer here...
 });

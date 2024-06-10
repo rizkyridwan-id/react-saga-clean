@@ -2,10 +2,12 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface CounterState {
   value: number;
+  loading: boolean;
 }
 
 const initialState: CounterState = {
   value: 0,
+  loading: false,
 };
 
 export const counterSlice = createSlice({
@@ -18,8 +20,12 @@ export const counterSlice = createSlice({
     decrement: (state, action: PayloadAction<number>) => {
       state.value -= action.payload;
     },
+    toggleLoading: (state, action: PayloadAction<boolean>) => {
+      state.loading = action.payload;
+    },
   },
 });
 
-export const { increment, decrement } = counterSlice.actions;
+export const CounterAction = counterSlice.actions;
+
 export default counterSlice.reducer;
