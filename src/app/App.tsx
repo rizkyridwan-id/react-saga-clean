@@ -1,8 +1,7 @@
-import Counter from './app/pages/counter/Counter';
-import reactLogo from './assets/react.svg';
-import viteLogo from './assets/vite.svg';
-import reduxSagaLogo from './assets/redux-saga.svg';
-import { Link } from 'react-router-dom';
+import Counter from './pages/counter/Counter';
+import reactLogo from '@/assets/react.svg';
+import viteLogo from '@/assets/vite.svg';
+import reduxSagaLogo from '@/assets/redux-saga.svg';
 import './App.css';
 function App() {
   return (
@@ -24,20 +23,20 @@ function App() {
       </div>
       <h1 className="font-bold text-3xl">
         Hello{' '}
-        <span className="underline decoration-green-400 decoration-4">
+        <span className="underline decoration-pink-400 decoration-4">
           World
         </span>
       </h1>
       <h2 className="font-semibold text-2xl italic text-slate-500">
-        Vite + React + R Saga
+        Redux Saga Demo
       </h2>
       <Counter />
       <p className="text-slate-400 italic">
         Note: Click on the Vite and React logos to learn more
       </p>
-      <p className="text-slate-600 underline decoration-indigo-400 decoration-4 font-bold mt-2">
+      {/* <p className="text-slate-600 underline decoration-indigo-400 decoration-4 font-bold mt-2">
         <Link to={`admin/dashboard`}>Go to Dashboard</Link>
-      </p>
+      </p> */}
     </div>
   );
 }

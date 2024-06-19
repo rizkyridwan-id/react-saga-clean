@@ -1,10 +1,15 @@
 import { useState } from 'react';
 import reduxSagaLogo from '../../assets/redux-saga.svg';
-import { Link, NavLink, Outlet } from 'react-router-dom';
+import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom';
+import { ExitIcon } from '@radix-ui/react-icons';
 
 export default function DashboardLayout() {
   const [isSideNavOpen, setIsSideNavOpen] = useState(false);
-
+  const navigate = useNavigate();
+  const handleSubmit = () => {
+    localStorage.clear();
+    navigate('/login');
+  };
   return (
     <>
       {/*  <!-- Component: Side navigation menu with content separator --> */}
@@ -172,11 +177,11 @@ export default function DashboardLayout() {
           </div>
         </nav>
         <footer className="border-t border-slate-200 p-3">
-          <Link
-            to="/"
-            className="flex items-center gap-3 rounded p-3 text-slate-900 transition-colors hover:text-emerald-500 "
+          <button
+            onClick={handleSubmit}
+            className="flex items-center gap-3 rounded p-3 text-slate-900 transition-colors hover:text-emerald-500 w-full"
           >
-            <div className="flex items-center self-center ">
+            {/* <div className="flex items-center self-center ">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -193,11 +198,12 @@ export default function DashboardLayout() {
                   d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125"
                 />
               </svg>
-            </div>
+            </div> */}
+            <ExitIcon />
             <div className="flex w-full flex-1 flex-col items-start justify-center gap-0 overflow-hidden truncate text-sm font-medium">
-              Go Back to Counter
+              Logout
             </div>
-          </Link>
+          </button>
         </footer>
       </aside>
       <div className="flex-1 ml-20 lg:ml-72 p-4">
