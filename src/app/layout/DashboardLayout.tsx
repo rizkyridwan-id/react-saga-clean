@@ -12,6 +12,7 @@ import { Sheet, SheetContent, SheetTrigger } from '@/app/components/ui/sheet';
 import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom';
 import { ExitIcon } from '@radix-ui/react-icons';
 import { useState } from 'react';
+import BreadcrumbRouter from '../components/BreadcrumbRouter';
 export default function DashboardLayout() {
   const navigate = useNavigate();
   const [sheetOpen, setSheetOpen] = useState(false);
@@ -20,7 +21,7 @@ export default function DashboardLayout() {
     navigate('/login');
   };
   return (
-    <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
+    <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr] bg-muted/40">
       <div className="hidden border-r bg-muted/40 md:block">
         <div className="flex h-full max-h-screen flex-col gap-2">
           <div className="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
@@ -165,7 +166,10 @@ export default function DashboardLayout() {
             </SheetContent>
           </Sheet>
         </header>
-        <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
+        <header className="hidden sticky top-0 z-30 md:flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
+          <BreadcrumbRouter className="hidden md:flex mt-4" />
+        </header>
+        <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 sm:p-6">
           <Outlet />
         </main>
       </div>

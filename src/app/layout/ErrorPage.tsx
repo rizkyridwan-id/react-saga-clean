@@ -1,5 +1,5 @@
 import { Link, useRouteError } from 'react-router-dom';
-import errorImage from '../../assets/404-error.jpg';
+import errorImage from '../../assets/404-error.png';
 import { ReactNode } from 'react';
 import { Button } from '../components/ui/button';
 export default function ErrorPage({ children }: { children?: ReactNode }) {
