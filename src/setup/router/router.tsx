@@ -4,7 +4,7 @@ import ErrorPage from '../../app/layout/ErrorPage';
 import User from '../../app/pages/guest/Guest';
 import Dashboard from '../../app/pages/dashboard/Dashboard';
 import Login, { loginLoader } from '@/app/pages/login/Login';
-import DashboardLayout from '@/app/layout/DashboardLayout2';
+import DashboardLayout from '@/app/layout/DashboardLayout';
 
 export const protectedRoute = () => {
   const token = localStorage.getItem('token');

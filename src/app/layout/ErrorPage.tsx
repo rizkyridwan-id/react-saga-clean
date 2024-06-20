@@ -4,7 +4,7 @@ import { ReactNode } from 'react';
 import { Button } from '../components/ui/button';
 export default function ErrorPage({ children }: { children?: ReactNode }) {
   const error = useRouteError();
-
+  console.error(error);
   return (
     <div
       id="error-page"
