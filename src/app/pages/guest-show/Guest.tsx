@@ -27,11 +27,23 @@ import {
   TableRow,
 } from '@/app/components/ui/table';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { useAppSelector } from '@/setup/redux/store';
+import { GuestSaga } from './redux/guest-saga';
+import clsx from 'clsx';
 export default function Guest() {
+  const dispatch = useDispatch();
+  const guests = useAppSelector((state) => state.guest.data);
+
   const navigate = useNavigate();
   const handleAddClick = () => {
     navigate('modify');
   };
+
+  useEffect(() => {
+    dispatch(GuestSaga.getData());
+  }, []);
   return (
     <div className="flex min-h-screen w-full flex-col">
       <div className="flex flex-col sm:gap-4">
@@ -81,13 +93,13 @@ export default function Guest() {
                 <TableHeader>
                   <TableRow>
                     <TableHead>Name</TableHead>
-                    <TableHead>Status</TableHead>
-                    <TableHead>Price</TableHead>
-                    <TableHead className="hidden md:table-cell">
-                      Total Sales
+                    <TableHead>Email</TableHead>
+                    <TableHead>Gender</TableHead>
+                    <TableHead className="hidden lg:table-cell">
+                      Origin
                     </TableHead>
-                    <TableHead className="hidden md:table-cell">
-                      Created at
+                    <TableHead className="hidden lg:table-cell">
+                      Created At
                     </TableHead>
                     <TableHead>
                       <span className="sr-only">Actions</span>
@@ -95,44 +107,56 @@ export default function Guest() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  <TableRow>
-                    <TableCell className="font-medium">
-                      Laser Lemonade Machine
-                    </TableCell>
-                    <TableCell>
-                      <Badge variant="outline">Draft</Badge>
-                    </TableCell>
-                    <TableCell>$499.99</TableCell>
-                    <TableCell className="hidden md:table-cell">25</TableCell>
-                    <TableCell className="hidden md:table-cell">
-                      2023-07-12 10:42 AM
-                    </TableCell>
-                    <TableCell>
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <Button
-                            aria-haspopup="true"
-                            size="icon"
-                            variant="ghost"
-                          >
-                            <MoreHorizontal className="h-4 w-4" />
-                            <span className="sr-only">Toggle menu</span>
-                          </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                          <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                          <DropdownMenuItem>Edit</DropdownMenuItem>
-                          <DropdownMenuItem>Delete</DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                    </TableCell>
-                  </TableRow>
+                  {guests.map((guest) => (
+                    <TableRow key={guest.id}>
+                      <TableCell className="font-medium" width={150}>
+                        {guest.name}
+                      </TableCell>
+                      <TableCell className="hidden lg:table-cell" width={150}>
+                        {guest.email}
+                      </TableCell>
+                      <TableCell className="hidden lg:table-cell" width={95}>
+                        <Badge
+                          className={clsx({
+                            'bg-sky-500': true,
+                            'bg-rose-400': guest.gender === 'Female',
+                          })}
+                        >
+                          {guest.gender}
+                        </Badge>
+                      </TableCell>
+                      <TableCell>{`${guest.state}, ${guest.city}`}</TableCell>
+                      <TableCell className="">
+                        {new Date(guest.createdAt).toDateString()}
+                      </TableCell>
+                      <TableCell>
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <Button
+                              aria-haspopup="true"
+                              size="icon"
+                              variant="ghost"
+                            >
+                              <MoreHorizontal className="h-4 w-4" />
+                              <span className="sr-only">Toggle menu</span>
+                            </Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent align="end">
+                            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                            <DropdownMenuItem>Edit</DropdownMenuItem>
+                            <DropdownMenuItem>Delete</DropdownMenuItem>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                      </TableCell>
+                    </TableRow>
+                  ))}
                 </TableBody>
               </Table>
             </CardContent>
             <CardFooter>
               <div className="text-xs text-muted-foreground">
-                Showing <strong>1-10</strong> of <strong>32</strong> products
+                Showing <strong>0-{guests.length}</strong> of{' '}
+                <strong>{guests.length}</strong> Guests
               </div>
             </CardFooter>
           </Card>

@@ -1,11 +1,11 @@
 import { RouteObject, createBrowserRouter, redirect } from 'react-router-dom';
 import ErrorPageCounter from '../../app/layout/ErrorPageCounter';
 import ErrorPage from '../../app/layout/ErrorPage';
-import Guest from '../../app/pages/guest/Guest';
+import Guest from '../../app/pages/guest-show/Guest';
 import Dashboard from '../../app/pages/dashboard/Dashboard';
 import Login, { loginLoader } from '@/app/pages/login/Login';
 import DashboardLayout from '@/app/layout/DashboardLayout';
-import ModifyGuest from '@/app/pages/guest/modify/ModifyGuest';
+import ModifyGuest from '@/app/pages/guest-edit/ModifyGuest';
 
 export const protectedRoute = () => {
   const token = localStorage.getItem('token');

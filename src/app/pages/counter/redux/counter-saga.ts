@@ -1,4 +1,4 @@
-import { takeLatest, put, call } from 'redux-saga/effects';
+import { put, call, takeLeading } from 'redux-saga/effects';
 import * as PromiseMocker from '../../../../helper/promise-mocker';
 import { CounterAction } from './counter-reducer';
 import { PayloadAction } from '@reduxjs/toolkit';
@@ -8,6 +8,7 @@ export const CounterSagaType = {
 };
 
 function* incrementAsync(action: PayloadAction<number>) {
+  console.log('called');
   yield put(CounterAction.toggleLoading(true));
   yield call(PromiseMocker.delay, 1000);
   yield put(CounterAction.increment(action.payload));
@@ -16,7 +17,7 @@ function* incrementAsync(action: PayloadAction<number>) {
 
 // WATCHER
 export function* watchCounterSaga() {
-  yield takeLatest(CounterSagaType.INCREMENT_ASYNC, incrementAsync);
+  yield takeLeading(CounterSagaType.INCREMENT_ASYNC, incrementAsync);
 }
 // SAGA ACTION
 export const CounterSaga = {

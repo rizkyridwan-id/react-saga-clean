@@ -6,6 +6,7 @@ import {
   BreadcrumbSeparator,
 } from './ui/breadcrumb';
 import { CustomRouteObject, routes } from '@/setup/router/router';
+import { Fragment } from 'react/jsx-runtime';
 
 export interface BreadcrumbRouterProps {
   className: string;
@@ -24,12 +25,12 @@ export default function BreadcrumbRouter({ className }: BreadcrumbRouterProps) {
           const separator = next && <BreadcrumbSeparator />;
 
           return (
-            <>
+            <Fragment key={i}>
               <BreadcrumbLink asChild>
                 <Link to={mRoute.pathname}>{route.breadcrumb}</Link>
               </BreadcrumbLink>
               {separator}
-            </>
+            </Fragment>
           );
         })}
       </BreadcrumbList>
