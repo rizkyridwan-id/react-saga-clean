@@ -87,6 +87,10 @@ const guestSlice = createSlice({
       state.rowLoading = null;
       state.error = action.payload;
     },
+    clearGuestState: (state) => {
+      state.error = null;
+      state.selectedGuest = null;
+    },
     setRowLoading: (state, action: PayloadAction<string | null>) => {
       state.rowLoading = action.payload;
     },

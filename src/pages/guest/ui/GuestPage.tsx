@@ -15,7 +15,7 @@ import {
   DropdownMenuTrigger,
 } from '@/shared/components';
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from '@/app/store';
 import ScreenLoading from '@/shared/components/custom/ScreenLoading';
@@ -28,6 +28,7 @@ export function GuestPage() {
   const guests = useAppSelector((state) => state.guest.data);
   const screenLoading = useAppSelector((state) => state.guest.loading);
   const alertDialog = useAlertDialog();
+  const isInit = useRef(true);
 
   const navigate = useNavigate();
   const handleAddClick = () => {
@@ -50,7 +51,10 @@ export function GuestPage() {
   };
 
   useEffect(() => {
+    if (!isInit.current) return;
+
     dispatch(GuestAction.getGuestRequest());
+    isInit.current = false;
   }, [dispatch]);
 
   return (

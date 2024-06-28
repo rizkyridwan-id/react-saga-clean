@@ -18,8 +18,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/shared/components/ui/select';
+import { useUnmount } from '@/shared/lib/use-unmount';
 import { CircleX, RotateCw } from 'lucide-react';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 export function GuestEditPage() {
@@ -29,6 +30,7 @@ export function GuestEditPage() {
   const loading = useAppSelector((state) => state.guest.rowLoading);
   const screenLoading = useAppSelector((state) => state.guest.loading);
   const selectedGuest = useAppSelector((state) => state.guest.selectedGuest);
+  const isInit = useRef(true);
 
   const initialData: CreateGuestDto = {
     name: '',
@@ -43,8 +45,10 @@ export function GuestEditPage() {
   const title = id ? 'Edit Guest' : 'Add Guest';
 
   useEffect(() => {
-    if (!id) return;
+    if (!id || !isInit.current) return;
+
     dispatch(GuestAction.getGuestByIdRequest(id));
+    isInit.current = false;
   }, [id, dispatch]);
 
   useEffect(() => {
@@ -53,6 +57,10 @@ export function GuestEditPage() {
       setForm({ ...selectedGuest });
     }
   }, [id, selectedGuest]);
+
+  useUnmount(() => {
+    selectedGuest && dispatch(GuestAction.clearGuestState());
+  });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({
